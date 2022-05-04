@@ -1,0 +1,27 @@
+#sbb르포젝트 혼자 2장 부터 연습 하기 위한 디비
+
+
+DROP DATABASE IF EXISTS sbb_practice1;
+CREATE DATABASE sbb_practice1;
+USE sbb_practice1;
+
+CREATE TABLE question(
+id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+`subject` VARCHAR(200) NOT NULL,
+content TEXT NOT NULL,
+create_date DATETIME NOT NULL
+);
+
+
+CREATE TABLE answer(
+id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+create_Date DATETIME NOT NULL,
+question_id BIGINT UNSIGNED NOT NULL,
+content TEXT NOT NULL
+);
+
+SELECT * FROM question;
+
+SELECT * FROM answer;
+
+
