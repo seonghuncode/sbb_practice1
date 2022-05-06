@@ -1,0 +1,17 @@
+<!-- 템플릿에 대해 간단 정리-->
+<!-- 템플릿은 자바 코드를 삽입할 수 있는 HTML파일이다. 템플릿을 사용하기 위해서는 여러가지 템플릿 엔진이 있지만
+이 프로젝트에서 사용할 것은 타임리프 템플릿 엔진이다.-->
+
+<!-- th로 시작하는 것은 타임리프 템플릿 속성을 사용하는 속성 -->
+
+<table>
+    <thead>
+        <tr> <th>제목</th> <th>작성일</th> </tr>
+    </thead>
+    <tbody>
+        <tr th:each="question : ${questions}">
+<!--            <td>[[${question.subject}]]</td> <td>[[${question.createDate}]]</td> 아래외 같다 결과-->
+            <td th:text="${question.subject}"></td> <td th:text="${question.createDate}"></td>
+        </tr>
+    </tbody>
+</table>

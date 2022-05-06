@@ -1,5 +1,9 @@
 package com.mysite.sbb_practice1;
 
+import com.mysite.sbb_practice1.answer.Answer;
+import com.mysite.sbb_practice1.answer.AnswerRepository;
+import com.mysite.sbb_practice1.question.Question;
+import com.mysite.sbb_practice1.question.QuestionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

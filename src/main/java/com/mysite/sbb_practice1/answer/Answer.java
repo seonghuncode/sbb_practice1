@@ -1,5 +1,6 @@
-package com.mysite.sbb_practice1;
+package com.mysite.sbb_practice1.answer;
 
+import com.mysite.sbb_practice1.question.Question;
 import lombok.Getter;
 import lombok.Setter;
 
