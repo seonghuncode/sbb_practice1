@@ -24,4 +24,9 @@ public class QuestionController {
         //question/list url에 대해 매핑하는 컨트롤러이다.
     }
 
+
+
+
+
+
 }
