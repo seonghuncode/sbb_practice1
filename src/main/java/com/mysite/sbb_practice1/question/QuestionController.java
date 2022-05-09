@@ -13,12 +13,12 @@ import java.util.List;
 public class QuestionController {
 
     @Autowired //의존성 주입!!!
-    private QuestionRepository questionRepository;
+    private QuestionService questionService;
 
 
     @RequestMapping("/list")
     public String showList(Model model){
-        List<Question> questions = questionRepository.findAll();
+        List<Question> questions = questionService.getList();
         model.addAttribute("questions", questions);
         return "question_list";
         //question/list url에 대해 매핑하는 컨트롤러이다.
