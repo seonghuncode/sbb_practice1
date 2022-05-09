@@ -11,7 +11,14 @@
     <tbody>
         <tr th:each="question : ${questions}">
 <!--            <td>[[${question.subject}]]</td> <td>[[${question.createDate}]]</td> 아래외 같다 결과-->
-            <td th:text="${question.subject}"></td> <td th:text="${question.createDate}"></td>
+            <td>
+                <a th:href="@{|/question/detail/${question.id}|}"  th:text="${question.subject}"></a>
+                <!--th:href의 타임리프를 사용하기 위해서 주소는 @{}안에 적어주어야 한다-->
+                <!--문자열과 자바객체를 같이 사용하기 위해서는 ||안에다가 작성해 주어야 한다 -->
+            </td>
+
+            <td th:text="${question.createDate}"></td>
+
         </tr>
     </tbody>
 </table>

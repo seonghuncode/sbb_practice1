@@ -1,10 +1,12 @@
 package com.mysite.sbb_practice1.question;
 
 
+import com.mysite.sbb_practice1.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor //아래 final을 선언하여 사용하기 위해서 사용하는 어노테이션 이다.
 @Service
@@ -20,6 +22,19 @@ public class QuestionService {
 
     public List<Question> getList(){
         return questionRepository.findAll();
+    }
+
+
+
+    public Question getQuestion(Integer id){
+        Optional<Question> question = questionRepository.findById(id);
+        //Optional객체는 값이 있을 수도 없을 수도 있기 때문에 존재하는지 여부를 판단해 주어야 한다
+        if(question.isPresent()){
+            return question.get();
+        }
+        else{
+            throw new DataNotFoundException("question not found");
+        }
     }
 
 
