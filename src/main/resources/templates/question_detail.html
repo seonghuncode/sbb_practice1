@@ -1,9 +1,9 @@
-<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 
-<!-- 부트스트랩을 직접 설치하지 않고 cdnjs에서 링크를 가지고 와서 사용하는 방법으로 진행(버전 확인)-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
 
-<div class="container my-3">
+<html layout:decorate="~{layout}">
+
+
+<div layout:fragment="content" class="container my-3">
 
     <!-- 질문 -->
     <h1 class="border-bottom py-2" th:text="${question.subject}"></h1>
@@ -49,7 +49,7 @@
 </div>
 
 
-
-
-
 </div>
+
+
+</html>

@@ -17,7 +17,7 @@ html > body input {
 }
 
 
-
+/*
 textarea {
     width:100%;
 }
@@ -25,6 +25,8 @@ textarea {
 input[type=submit] {
     margin-top:10px;
 }
+부트스트랩으로 인해 필요가 없어졌다
+*/
 
 
 
