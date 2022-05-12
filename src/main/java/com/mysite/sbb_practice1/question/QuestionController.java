@@ -20,7 +20,8 @@ public class QuestionController {
 
 
     @RequestMapping("/list")
-    public String showList(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+    public String showList(Model model, @RequestParam(value = "page", defaultValue = "1") int page){
+        page--;
         Page<Question> paging = questionService.getList(page);
         model.addAttribute("paging", paging); // 기존 url + ?page=2 ==> 2번 페이지가 나온다
         return "question_list";
@@ -37,6 +38,7 @@ public class QuestionController {
         model.addAttribute("question", question);
         return "question_detail";
     }
+
 
 
     @GetMapping("/create")

@@ -22,28 +22,6 @@
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
 
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-
-        <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-
-            <a class="page-link" th:href="@{|?page=${paging.number-1}|}">이전</a>
-
-        </li>
-
-        <div th:each="page : ${#numbers.sequence(1, paging.totalPages-1)}">
-            <li class="page-item" th:if="${page >= paging.number-3 and page <= paging.number+3}">
-                <a class="page-link" th:href="@{|?page=${page-1}|}" th:text="${page}"></a></li>
-        </div>
-
-        <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-
-            <a class="page-link" th:href="@{|?page=${paging.number+1}|}">다음</a>
-
-        </li>
-    </ul>
-</nav>
-
 
 </body>
 </html>

@@ -11,8 +11,8 @@
     </thead>
     <tbody>
         <tr th:each="question, loop : ${paging}">
-            <td th:text="${loop.count}"></td>  <!--반복 횟수 -->
-
+<!--            <td th:text="${loop.count}"></td>  &lt;!&ndash;반복 횟수 &ndash;&gt;-->
+            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
             <!--          <td>[[${question.subject}]]</td> <td>[[${question.createDate}]]</td> 아래외 같다 결과-->
             <td>
                 <a th:href="@{|/question/detail/${question.id}|}"  th:text="${question.subject}"></a>
@@ -22,10 +22,32 @@
 
             <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
 <!--            #temporals.format(날짜객체, 날짜포맷)-->
-
         </tr>
     </tbody>
 </table>
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+
+                <a class="page-link" th:href="@{|?page=${paging.number}|}">이전</a>
+
+            </li>
+
+            <div th:each="page : ${#numbers.sequence(1, paging.totalPages-1)}">
+                <li class="page-item" th:if="${page >= paging.number-3 and page <= paging.number+3}">
+                    <a class="page-link" th:href="@{|?page=${page}|}" th:text="${page}"></a></li>
+            </div>
+
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+
+                <a class="page-link" th:href="@{|?page=${paging.number}|}">다음</a>
+
+            </li>
+        </ul>
+    </nav>
 
     <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
 
