@@ -3,10 +3,12 @@ package com.mysite.sbb_practice1.question;
 
 import com.mysite.sbb_practice1.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor //아래 final을 선언하여 사용하기 위해서 사용하는 어노테이션 이다.
@@ -21,8 +23,9 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
 
-    public List<Question> getList(){
-        return questionRepository.findAll();
+    public Page<Question> getList(int page){
+        Pageable pageable = PageRequest.of(page, 10); //조회할 페이지의 번호, 한 페이지 보여줄 게시물 갯수
+        return questionRepository.findAll(pageable);
     }
 
 
@@ -48,6 +51,9 @@ public class QuestionService {
         questionRepository.save(question);
 
     }
+
+
+
 
 
 
