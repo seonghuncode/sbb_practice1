@@ -4,6 +4,7 @@ import com.mysite.sbb_practice1.answer.Answer;
 import com.mysite.sbb_practice1.answer.AnswerRepository;
 import com.mysite.sbb_practice1.question.Question;
 import com.mysite.sbb_practice1.question.QuestionRepository;
+import com.mysite.sbb_practice1.question.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +29,21 @@ class SbbPractice1ApplicationTests {
 
 	@Autowired
 	private AnswerRepository answerRepository; // answerRepository를 사용하기 위해 객체 주입을 해준다.
+
+	@Autowired
+	private QuestionService questionService;
+
+
+	@Test
+	void testMakeDate(){
+		Question question = new Question();
+		for(int i = 1; i <= 300; i++){
+			String subject = "테스트 데이터 입니다. [%03d]".formatted(i);
+			String content = "테스트 데이터 내용 입니다.";
+
+			questionService.Create(subject, content);
+		}
+	}
 
 
 	@Test
