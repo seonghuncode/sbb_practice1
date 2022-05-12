@@ -21,8 +21,8 @@ public class QuestionController {
 
     @RequestMapping("/list")
     public String showList(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-        Page<Question> questions = questionService.getList(page);
-        model.addAttribute("questions", questions); // 기존 url + ?page=2 ==> 2번 페이지가 나온다
+        Page<Question> paging = questionService.getList(page);
+        model.addAttribute("paging", paging); // 기존 url + ?page=2 ==> 2번 페이지가 나온다
         return "question_list";
         //question/list url에 대해 매핑하는 컨트롤러이다.
 

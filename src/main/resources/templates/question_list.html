@@ -10,7 +10,7 @@
         <tr> <th>번호</th> <th>제목</th> <th>작성일</th> </tr>
     </thead>
     <tbody>
-        <tr th:each="question, loop : ${questions}">
+        <tr th:each="question, loop : ${paging}">
             <td th:text="${loop.count}"></td>  <!--반복 횟수 -->
 
             <!--          <td>[[${question.subject}]]</td> <td>[[${question.createDate}]]</td> 아래외 같다 결과-->
