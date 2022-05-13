@@ -1,0 +1,34 @@
+<html layout:decorate="~{layout}">
+
+<div layout:fragment="content" class="container my-3">
+
+
+    <div class="my-3 border-bottom">
+        <h3>회원가입</h3>
+    </div>
+    <form th:action="@{/user/signup}" method="post" th:object="${userCreateForm}"> <!--타임리프를 사용할때는 항상 태그 앞에 th를 붙여야 한다 -->
+        <div th:replace="form_errors :: formErrorsFragment"></div>
+            <div class="mb-3">
+                <label for="username" class="form-label">사용자ID</label> <br>
+                <input type="text" class="form-control" id="username" name="username" placeholder="사용자ID를 입력해 주세요" th:field="*{username}">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">이메일</label> <br>
+                <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력해 주세요." th:field="*{email}">
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">비밀번호1</label> <br>
+                <input type="password" class="form-control" id="password1" name="password"
+                       placeholder="비밀번호를 입력해 주세요." th:field="*{password1}">
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">비밀번호2</label> <br>
+                <input type="password" class="form-control" id="password2" name="password"
+                       placeholder="비밀번호를 입력해 주세요." th:field="*{password2}">
+            </div>
+            <button type="submit" class="btn btn-primary">회원가입</button>
+    </form>
+
+
+
+</html>
