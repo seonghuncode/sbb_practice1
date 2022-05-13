@@ -12,7 +12,8 @@
     <tbody>
         <tr th:each="question, loop : ${paging}">
 <!--            <td th:text="${loop.count}"></td>  &lt;!&ndash;반복 횟수 &ndash;&gt;-->
-            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
+<!--            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>-->
+            <td th:text="${(paging.number+1) + loop.index}"></td>
             <!--          <td>[[${question.subject}]]</td> <td>[[${question.createDate}]]</td> 아래외 같다 결과-->
             <td>
                 <a th:href="@{|/question/detail/${question.id}|}"  th:text="${question.subject}"></a>
