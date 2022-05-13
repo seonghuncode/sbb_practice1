@@ -57,6 +57,9 @@ dependencies {
 //	@Min	최소값
 //	@Pattern	정규식으로 검증
 
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	//스프링 시큐리티를 사용하기 위해 설치하는 과정
 
 
 }
