@@ -1,31 +1,36 @@
-
-
 <html layout:decorate="~{layout}">
 
 
 <div layout:fragment="content" class="contatiner my-3">
 
-<table class="table">
-    <thead class="table-dark">
-        <tr> <th>번호</th> <th>제목</th> <th>작성일</th> </tr>
-    </thead>
-    <tbody>
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
         <tr th:each="question, loop : ${paging}">
-<!--            <td th:text="${loop.count}"></td>  &lt;!&ndash;반복 횟수 &ndash;&gt;-->
-<!--            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>-->
+            <!--            <td th:text="${loop.count}"></td>  &lt;!&ndash;반복 횟수 &ndash;&gt;-->
+            <!--            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>-->
             <td th:text="${(paging.number+1) + loop.index}"></td>
             <!--          <td>[[${question.subject}]]</td> <td>[[${question.createDate}]]</td> 아래외 같다 결과-->
             <td>
-                <a th:href="@{|/question/detail/${question.id}|}"  th:text="${question.subject}"></a>
+                <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
                 <!--th:href의 타임리프를 사용하기 위해서 주소는 @{}안에 적어주어야 한다-->
                 <!--문자열과 자바객체를 같이 사용하기 위해서는 ||안에다가 작성해 주어야 한다 -->
+                <span th:if="${#lists.size(question.answerList) > 0}" class="badge bg-primary rounded-pill">
+                    <span th:text="|${#lists.size(question.answerList)}|"></span>
+                </span>
             </td>
 
             <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-<!--            #temporals.format(날짜객체, 날짜포맷)-->
+            <!--            #temporals.format(날짜객체, 날짜포맷)-->
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
 
     <nav aria-label="Page navigation example">
