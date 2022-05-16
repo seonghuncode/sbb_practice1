@@ -50,9 +50,18 @@ public class UserController {
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup_form";
         }
-
-
         return "redirect:/";
     }
+
+    @GetMapping("/login")
+    //login.form.html의 파일을 렌더링하는 역할, 스프링 시큐리티가 실제로 로그인 하는 페이지는를 해주기 때문에 @PostMApping운 필요 없다.
+    public String showLogin(){
+
+        return "login_form";
+    }
+
+
+
+
 
 }
