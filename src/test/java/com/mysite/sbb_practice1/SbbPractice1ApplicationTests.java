@@ -41,7 +41,7 @@ class SbbPractice1ApplicationTests {
 			String subject = "테스트 데이터 입니다. [%03d]".formatted(i);
 			String content = "테스트 데이터 내용 입니다.";
 
-			questionService.Create(subject, content);
+			questionService.Create(subject, content, null);
 		}
 	}
 

@@ -39,3 +39,15 @@ SELECT * FROM question;
 SELECT * FROM answer;
 
 
+# 질문 테이블에 site_user_id 칼럼 추가
+ALTER TABLE question
+ADD COLUMN author_id BIGINT UNSIGNED NOT NULL;
+
+# 기존 질문을 특정 사용자와 연결짓기
+UPDATE question
+SET author_id = 1;
+
+# 답변 테이블에 site_user_id 칼럼 추가
+ALTER TABLE answer
+ADD COLUMN author_id BIGINT UNSIGNED NOT NULL;
+

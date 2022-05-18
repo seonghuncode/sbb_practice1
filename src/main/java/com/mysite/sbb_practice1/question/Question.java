@@ -2,6 +2,7 @@ package com.mysite.sbb_practice1.question;
 
 
 import com.mysite.sbb_practice1.answer.Answer;
+import com.mysite.sbb_practice1.user.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,5 +35,7 @@ public class Question {
     private List<Answer> answerList; //질뭉에 대한 답변은 여러개 이므로 List로 만들어 받아 주어야 한다.
     //question.getAnswerList() --> 질문 객체에서 답변 객체를 호출 하고 싶을 경우 이런 사용이 가능해 지게 되었다.
 
+    @ManyToOne
+    private SiteUser author;
 
 }

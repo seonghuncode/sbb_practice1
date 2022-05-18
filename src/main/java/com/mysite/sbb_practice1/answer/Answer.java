@@ -1,6 +1,7 @@
 package com.mysite.sbb_practice1.answer;
 
 import com.mysite.sbb_practice1.question.Question;
+import com.mysite.sbb_practice1.user.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,4 +27,6 @@ public class Answer {
     private Question question;
     //답변 앤티티 에서 질문 앤티티를 참조하기 위해 추가한 코드(answer.geTQuestion().geTSubject()를 할 수 있게 해준다.)
 
+    @ManyToOne
+    private SiteUser author;
 }
