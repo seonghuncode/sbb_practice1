@@ -7,7 +7,8 @@
         <thead class="table-dark">
         <tr>
             <th>번호</th>
-            <th>제목</th>
+            <th style="width:50%">제목</th>
+            <th>글쓴이</th>
             <th>작성일</th>
         </tr>
         </thead>
@@ -25,6 +26,8 @@
                     <span th:text="|${#lists.size(question.answerList)}|"></span>
                 </span>
             </td>
+
+            <td> <span th:if="${question.author} != null" th:text="${question.author.username}"></span> </td>
 
             <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
             <!--            #temporals.format(날짜객체, 날짜포맷)-->
