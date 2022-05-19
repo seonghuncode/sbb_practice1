@@ -6,8 +6,8 @@
 <h3 class="my-3 border bottom py-2">질문등록</h3>
 
     <!--th:object 오류 속성들이 어디에 포함되는 레이아웃인지 알려주어야 한다 -->
-    <form  th:action="@{/question/create}" method="post" th:object="${questionForm}">
-
+    <form   method="post" th:object="${questionForm}">
+        <input th:type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>  <!--th:Action을 지우면 _csrf값을 자동으로 만들어 주지 않기 때문에 수동으러 만들어 주어야 한다. -->
         <div th:replace="form_errors :: formErrorsFragment"></div>
         <div class="mb-3">
             <label for="subject" class="form-label">제목</label>
@@ -20,6 +20,7 @@
         </div>
 
         <input type="submit" value="저장하기" class="btn btn-primary">
+
     </form>
 
 
