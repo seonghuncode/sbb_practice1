@@ -100,7 +100,7 @@ public class QuestionController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String showdelete(Principal principal, @PathVariable("id") Integer id){
         Question question = questionService.getQuestion(id);
         if(!question.getAuthor().getUsername().equals(principal.getName())){
