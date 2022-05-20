@@ -38,12 +38,15 @@ public class AnswerService {
     }
 
 
-    public void modify(Integer id, String content){
-        Answer answer = answerRepository.getById(id);
+    public void modify(Integer id , String content){
+        Answer answer = answerRepository.findById(id).get();
         answer.setContent(content);
         answer.setModifyDate(LocalDateTime.now());
         answerRepository.save(answer);
+    }
 
+    public void  delete(Answer answer){
+        answerRepository.delete(answer);
     }
 
 

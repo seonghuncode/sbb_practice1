@@ -1,18 +1,18 @@
 <html layout:decorate="~{layout}">
 
 
-<div layout:fragment="content" class="contatiner my-3">
+<div layout:fragment="content" class="container my-3">
 
     <table class="table">
         <thead class="table-dark">
-        <tr>
+        <tr class="text-nowrap"> <!-- 글자를 한줄로 나오게 해주는 코드 -->
             <th>번호</th>
             <th style="width:50%">제목</th>
             <th>글쓴이</th>
             <th>작성일</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody style="background-color:#C0FFFF;">
         <tr th:each="question, loop : ${paging}">
             <!--            <td th:text="${loop.count}"></td>  &lt;!&ndash;반복 횟수 &ndash;&gt;-->
             <!--            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>-->

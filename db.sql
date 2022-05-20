@@ -51,3 +51,19 @@ SET author_id = 1;
 ALTER TABLE answer
 ADD COLUMN author_id BIGINT UNSIGNED NOT NULL;
 
+
+# 비밀번호 : sbs1234 => bcrypt 적용
+# 테스트용 사용자 3명 생성(1명은 관리자)
+INSERT INTO site_user
+SET username = 'admin',
+`password` = '$2a$10$ECLIahn9UgeZxUxmca6HyeYTwOAspolhesV1qXFQNF5zyR20FfmB6',
+email = 'admin@test.com';
+INSERT INTO site_user
+SET username = 'user1',
+`password` = '$2a$10$ECLIahn9UgeZxUxmca6HyeYTwOAspolhesV1qXFQNF5zyR20FfmB6',
+email = 'user1@test.com';
+INSERT INTO site_user
+SET username = 'user2',
+`password` = '$2a$10$ECLIahn9UgeZxUxmca6HyeYTwOAspolhesV1qXFQNF5zyR20FfmB6',
+email = 'user2@test.com';
+email = 'user2@test.com';

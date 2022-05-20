@@ -58,7 +58,38 @@ public class AnswerController {
         }
         answerForm.setContent(answerForm.getContent());
         return "answer_form";
+    }// Get의 경우 처음에 정보를 넘겨주지 않을때 사용하기 위해 get방식으로 만들어 주었다??
+
+
+    //값이 있는 정보가 넘어올 경우를 위해 post방식을 사용
+    @PreAuthorize("isAuthenticated")
+    @PostMapping("/modify/{id}")
+    public String showModify(Principal principal, @PathVariable("id") Integer id, @Valid AnswerForm answerForm, BindingResult bindingResult){
+        //bindingresult는 @Vaild의 어노테이션의 결괴 값을 시용하기 위해 사용?
+        if (bindingResult.hasErrors()) {
+            return "answer_form";
+        }
+        Answer answer = answerService.getAnswer(id); //전달받은 id값을 넘겨 해당 id의 answer정보를 가지고 온다
+        //현재 로그인한 회원과 답변을 작성한 회원이 동일 회원인지 검사하는 코드
+        if(!principal.getName().equals(answer.getAuthor().getUsername())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "답변을 수정할 권항이 없습니다.");
+        }
+
+        answerService.modify(id, answerForm.getContent());
+        return "redirect:/question/detail/%s".formatted(id);
     }
+
+    @PreAuthorize("isAuthenticated")
+    @GetMapping("/delete/{id}")
+    public String delete(Principal principal, @PathVariable("id") Integer id){
+        Answer answer = answerService.getAnswer(id);
+        if(!answer.getAuthor().getUsername().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 할 권한이 없습니다.");
+        }
+        answerService.delete(answer);
+        return "redirect:/question/detail/%d".formatted(answer.getQuestion().getId());
+    }
+
 
 
 
