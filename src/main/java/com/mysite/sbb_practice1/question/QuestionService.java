@@ -74,6 +74,12 @@ public class QuestionService {
     }
 
 
+    public void vote(Question question, SiteUser siteUser){
+        question.getVoter().add(siteUser);  //question에서 voter을 가지고 와서 투표한 siteUser을 더해준다
+        questionRepository.save(question); //투표자가 더해지면 변경 내용을 저장햊해 준다.
+    }
+
+
 
 
 

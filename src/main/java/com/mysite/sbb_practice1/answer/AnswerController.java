@@ -76,7 +76,7 @@ public class AnswerController {
         }
 
         answerService.modify(id, answerForm.getContent());
-        return "redirect:/question/detail/%s".formatted(id);
+        return "redirect:/question/detail/%s".formatted(answer.getQuestion().getId());
     }
 
     @PreAuthorize("isAuthenticated")
@@ -90,6 +90,15 @@ public class AnswerController {
         return "redirect:/question/detail/%d".formatted(answer.getQuestion().getId());
     }
 
+    @PreAuthorize("isAuthenticated")
+    @GetMapping("/vote/{id}")
+    public String showVote(Principal principal, @PathVariable("id") Integer id){
+        Answer answer = answerService.getAnswer(id);
+        SiteUser siteUser = userService.getUser(principal.getName());
+        answerService.vote(answer, siteUser);
+        return "redirect:/question/detail/%s".formatted(answer.getQuestion().getId());
+        //리턴값은 질문id의 디테일로 가야 하기 때문에 aswer에서 question을 통해 id값을 리턴한다
+    }
 
 
 

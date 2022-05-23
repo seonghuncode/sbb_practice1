@@ -96,7 +96,7 @@ public class QuestionController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
         questionService.modify(q, questionForm.getSubject(), questionForm.getContent());
-        return "redirect:/question/detail/%s".formatted(id);
+        return "redirect:/question/detail/%s".formatted(q.getId());
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -108,8 +108,19 @@ public class QuestionController {
         }
         questionService.delete(question);
         return "redirect:/";
-
     }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}")
+    public String showVote(Principal principal, @PathVariable("id") Integer id){
+        Question question = questionService.getQuestion(id); //현재 클릭한 질문에 대한 id값을 url에서 가지고 와서 question정보를 가지고 온다
+        SiteUser siteUser = userService.getUser(principal.getName()); //유저에 대한 정보를 가지고 온다.
+        questionService.vote(question, siteUser); //questionService에 만들어준 메서드에 대해 매개변수를 넘겨 준다.
+        return "redirect:/question/detail/%d".formatted(id);
+    }
+
+
 
 
 

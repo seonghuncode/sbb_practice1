@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -39,5 +40,8 @@ public class Question {
     private SiteUser author;
 
     private LocalDateTime modifyDate;
+
+    @ManyToMany //하나의 질문에 여러사람 추천 가능, 한 사람이 여러개의 질문에 추천할 수 있다.
+    Set<SiteUser> voter; //Set의 경우 중복을 허용하지 않는다(추천인은 중복X)
 
 }

@@ -51,6 +51,14 @@ SET author_id = 1;
 ALTER TABLE answer
 ADD COLUMN author_id BIGINT UNSIGNED NOT NULL;
 
+# 사용자 테이블 생성
+CREATE TABLE site_user (
+  id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  username CHAR(100) NOT NULL UNIQUE,
+  `password` CHAR(100) NOT NULL,
+  email CHAR(100) NOT NULL UNIQUE
+);
+
 
 # 비밀번호 : sbs1234 => bcrypt 적용
 # 테스트용 사용자 3명 생성(1명은 관리자)
@@ -66,4 +74,35 @@ INSERT INTO site_user
 SET username = 'user2',
 `password` = '$2a$10$ECLIahn9UgeZxUxmca6HyeYTwOAspolhesV1qXFQNF5zyR20FfmB6',
 email = 'user2@test.com';
-email = 'user2@test.com';
+
+
+
+
+# 질문 테이블에 modify_date 칼럼 추가
+ALTER TABLE question
+ADD COLUMN modify_date DATETIME AFTER create_date;
+
+# 답변 테이블에 modify_date 칼럼 추가
+ALTER TABLE answer
+ADD COLUMN modify_date DATETIME AFTER create_date;
+
+
+
+# 질문 추천자(추천내역)
+CREATE TABLE question_voter (
+  id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  question_id BIGINT UNSIGNED NOT NULL,
+  voter_id BIGINT UNSIGNED NOT NULL
+);
+
+# 답변 추천자(추천내역)
+CREATE TABLE answer_voter (
+  id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  answer_id BIGINT UNSIGNED NOT NULL,
+  voter_id BIGINT UNSIGNED NOT NULL
+);
+
+
+SELECT * FROM question_voter;
+SELECT * FROM answer_voter;
+
