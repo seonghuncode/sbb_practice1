@@ -62,6 +62,10 @@ dependencies {
 	//스프링 시큐리티를 사용하기 위해 설치하는 과정
 
 
+	implementation 'org.commonmark:commonmark:0.18.2'
+//	마크다운 기능을 추가
+
+
 }
 
 tasks.named('test') {
