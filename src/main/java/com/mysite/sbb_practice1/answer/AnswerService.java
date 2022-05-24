@@ -15,7 +15,7 @@ public class AnswerService {
 
     private final AnswerRepository answerRepository;
 
-    public void create(Question question, String content, SiteUser author){
+    public Answer create(Question question, String content, SiteUser author){
         Answer answer = new Answer();
 
         answer.setContent(content);
@@ -24,6 +24,8 @@ public class AnswerService {
         answer.setAuthor(author);  //SiteUser객체를 추가로 전달 받아 답변 저장시 author을 추가로 세팅
 
         answerRepository.save(answer);
+
+        return answer; //controller에서 답변이 등록된 위치로 이동하기 위해서는  답변 객체가 반드시 필요하기 때문에 리턴을 해주어야 한다
 
     }
 

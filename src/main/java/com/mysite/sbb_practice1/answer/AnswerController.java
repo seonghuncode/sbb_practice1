@@ -43,9 +43,10 @@ public class AnswerController {
             return "question_detail";
         }
 
-        answerService.create(question, answerForm.getContent(), user); // question_detail에서 질문 등록을 누르면 최종적으로 답변의 저장이 된다
+//        answerService.create(question, answerForm.getContent(), user); // question_detail에서 질문 등록을 누르면 최종적으로 답변의 저장이 된다
+        Answer answer = answerService.create(question, answerForm.getContent(), user);
 
-        return String.format("redirect:/question/detail/%s", id);
+        return String.format("redirect:/question/detail/%s#answer_%s", id, answer.getId());
     }
 
 
@@ -76,7 +77,7 @@ public class AnswerController {
         }
 
         answerService.modify(id, answerForm.getContent());
-        return "redirect:/question/detail/%s".formatted(answer.getQuestion().getId());
+        return "redirect:/question/detail/%s#answer_%s".formatted(answer.getQuestion().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticated")
@@ -96,7 +97,7 @@ public class AnswerController {
         Answer answer = answerService.getAnswer(id);
         SiteUser siteUser = userService.getUser(principal.getName());
         answerService.vote(answer, siteUser);
-        return "redirect:/question/detail/%s".formatted(answer.getQuestion().getId());
+        return "redirect:/question/detail/%s#answer_%s".formatted(answer.getQuestion().getId(), answer.getId());
         //리턴값은 질문id의 디테일로 가야 하기 때문에 aswer에서 question을 통해 id값을 리턴한다
     }
 

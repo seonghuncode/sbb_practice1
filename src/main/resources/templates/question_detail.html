@@ -66,7 +66,8 @@
     <!-- 답변 반복 시작 -->
     <!-- #lists.size(이터러블객체)는 타임리프가 제공하는 유틸리티로 객체의 길이를 반환한다.  -->
     <div class="card my-3" th:each="answer : ${question.answerList}">
-        <div class="card-body">
+        <a th:id="|answer_${answer.id}|"></a>
+        <div class="card-body"> <!-- 앵커 태그의 id 속성은 유일한 값이어야 하므로 사용-->
             <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
 
             <div class="my-3">
