@@ -2,14 +2,17 @@ package com.mysite.sbb_practice1.question;
 
 
 import com.mysite.sbb_practice1.DataNotFoundException;
+import com.mysite.sbb_practice1.answer.Answer;
 import com.mysite.sbb_practice1.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +30,12 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
 
-    public Page<Question> getList(int page){
+    public Page<Question> getList(int page, String keyword){
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.asc("id"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); //조회할 페이지의 번호, 한 페이지 보여줄 게시물 갯수
-        return questionRepository.findAll(pageable);
+        Specification<Question> spec = search(keyword); //search를 keyword에 값을 넣어 결과값을 받아 spec에 넣어 리턴해 준다.
+        return questionRepository.findAll(spec, pageable);
     }
 
 
@@ -79,6 +83,41 @@ public class QuestionService {
         questionRepository.save(question); //투표자가 더해지면 변경 내용을 저장햊해 준다.
     }
 
+
+    private Specification<Question> search(String keyword){
+        return new Specification<Question>() {
+            @Override
+            public Predicate toPredicate(Root<Question> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true); //중복을 제거
+                Join<Question, SiteUser> u1 = q.join("author", JoinType.LEFT);
+                Join<Question, Answer> a = q.join("answerList", JoinType.LEFT);
+                Join<Answer, SiteUser> u2 = a.join("author", JoinType.LEFT);
+                return cb.or(cb.like(q.get("subject"), "%" + keyword + "%"), // 제목
+                        cb.like(q.get("content"), "%" + keyword + "%"),      // 내용
+                        cb.like(u1.get("username"), "%" + keyword + "%"),    // 질문 작성자
+                        cb.like(a.get("content"), "%" + keyword + "%"),      // 답변 내용
+                        cb.like(u2.get("username"), "%" + keyword + "%"));   // 답변 작성자
+            }
+        };
+
+//        q - Root, 즉 기준을 의미하는 Question 엔티티의 객체 (질문 제목과 내용을 검색하기 위해 필요)
+//
+//        u1 - Question 엔티티와 SiteUser 엔티티를 아우터 조인(JoinType.LEFT)하여 만든 SiteUser
+//        엔티티의 객체. Question 엔티티와 SiteUser 엔티티는 author 속성으로 연결되어 있기 때문에 q.join("author")와 같이 조인해야 한다.
+//        (질문 작성자를 검색하기 위해 필요)
+//
+//        a - Question 엔티티와 Answer 엔티티를 아우터 조인하여 만든 Answer 엔티티의 객체
+//        Question 엔티티와 Answer 엔티티는 answerList 속성으로 연결되어 있기 때문에 q.join("answerList")와 같이 조인해야 한다.
+//        (답변 내용을 검색하기 위해 필요)
+//
+//        u2 - 바로 위에서 작성한 a 객체와 다시 한번 SiteUser 엔티티와 아우터 조인하여 만든 SiteUser 엔티티의 객체
+//        (답변 작성자를 검색하기 위해서 필요)
+//        그리고 검색어(kw)가 포함되어 있는지를 like로 검색하기 위해 제목, 내용, 질문 작성자, 답변 내용, 답변 작성자 각각에 cb.like를
+//        사용하고 최종적으로 cb.or로 OR 검색되게 하였다. 위에서 예시로 든 쿼리와 비교해 보면 코드가 어떻게 구성되었는지 쉽게 이해될 것이다.
+//
+
+
+    }
 
 
 

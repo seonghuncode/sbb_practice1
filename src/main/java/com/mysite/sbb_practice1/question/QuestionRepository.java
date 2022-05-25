@@ -2,6 +2,7 @@ package com.mysite.sbb_practice1.question;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     List<Question> findBySubjectLike(String subject);
 
     Page<Question> findAll(Pageable pageable); // Page를 사용하여 pageable객체를 받아올 수 있도록 만든다
+
+    Page<Question> findAll(Specification<Question> spec, Pageable pageable);
+//    Specification과 Pageable 객체를 입력으로 Question 엔티티를 조회하는 findAll 메서드를 선언했다.
 }

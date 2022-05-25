@@ -28,10 +28,12 @@ public class QuestionController {
 
 
     @RequestMapping("/list")
-    public String showList(Model model, @RequestParam(value = "page", defaultValue = "1") int page){
+    public String showList(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
+      @RequestParam(value = "kw", defaultValue = "") String kw){ //디폴트값은 빈칸으로 만들어 준다
         page--;
-        Page<Question> paging = questionService.getList(page);
+        Page<Question> paging = questionService.getList(page, kw);
         model.addAttribute("paging", paging); // 기존 url + ?page=2 ==> 2번 페이지가 나온다
+        model.addAttribute("kw", kw); //화면에 검색한 검색어를 유지하기 위해 작성
         return "question_list";
         //question/list url에 대해 매핑하는 컨트롤러이다.
 
