@@ -30,11 +30,11 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
 
-    public Page<Question> getList(int page, String keyword){
+    public Page<Question> getList(int page, String kw){
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.asc("id"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); //조회할 페이지의 번호, 한 페이지 보여줄 게시물 갯수
-        Specification<Question> spec = search(keyword); //search를 keyword에 값을 넣어 결과값을 받아 spec에 넣어 리턴해 준다.
+        Specification<Question> spec = search(kw); //search를 keyword에 값을 넣어 결과값을 받아 spec에 넣어 리턴해 준다.
         return questionRepository.findAll(spec, pageable);
     }
 
@@ -84,19 +84,20 @@ public class QuestionService {
     }
 
 
-    private Specification<Question> search(String keyword){
+    private Specification<Question> search(String kw){
         return new Specification<Question>() {
+
             @Override
             public Predicate toPredicate(Root<Question> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true); //중복을 제거
                 Join<Question, SiteUser> u1 = q.join("author", JoinType.LEFT);
                 Join<Question, Answer> a = q.join("answerList", JoinType.LEFT);
                 Join<Answer, SiteUser> u2 = a.join("author", JoinType.LEFT);
-                return cb.or(cb.like(q.get("subject"), "%" + keyword + "%"), // 제목
-                        cb.like(q.get("content"), "%" + keyword + "%"),      // 내용
-                        cb.like(u1.get("username"), "%" + keyword + "%"),    // 질문 작성자
-                        cb.like(a.get("content"), "%" + keyword + "%"),      // 답변 내용
-                        cb.like(u2.get("username"), "%" + keyword + "%"));   // 답변 작성자
+                return cb.or(cb.like(q.get("subject"), "%" + kw + "%"), // 제목
+                        cb.like(q.get("content"), "%" + kw + "%"),      // 내용
+                        cb.like(u1.get("username"), "%" + kw + "%"),    // 질문 작성자
+                        cb.like(a.get("content"), "%" + kw + "%"),      // 답변 내용
+                        cb.like(u2.get("username"), "%" + kw + "%"));   // 답변 작성자
             }
         };
 
